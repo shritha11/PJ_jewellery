@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: "Rozha One:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/RozhaOne-Regular_1") format("woff2");
+}
+
+@font-face {
+  font-family: "Mukta:Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("https://static.figma.com/font/Mukta-Regular_3") format("woff2");
+}
+
+@font-face {
+  font-family: "Mukta:Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://static.figma.com/font/Mukta-Bold_3") format("woff2");
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}

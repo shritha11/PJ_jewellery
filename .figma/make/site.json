@@ -1,0 +1,10 @@
+{
+  "description": "Converts design files into React code, enabling developers to quickly transform UI designs into functional React components for efficient web development.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
