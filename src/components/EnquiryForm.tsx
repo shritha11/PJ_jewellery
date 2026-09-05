@@ -1,5 +1,6 @@
 import { useState } from "react"
 import enquireBg from "../imports/enquire-bg.png"
+
 type EnquireFormProps = {
   selectedPiece?: string
 }
@@ -8,19 +9,76 @@ export default function EnquireForm({
   selectedPiece = "Gold Jewellery",
 }: EnquireFormProps) {
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    occasion: "Bridal",
+    message: "",
+  })
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    setLoading(true)
+    setError("")
+
+    try {
+      const response = await fetch("http://localhost:5001/api/enquiries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          piece: selectedPiece,
+          occasion: formData.occasion,
+          message: formData.message,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to submit enquiry.")
+      }
+
+      console.log("Enquiry submitted:", data)
+
+      setSubmitted(true)
+    } catch (err) {
+      console.error("Submission error:", err)
+      setError("Something went wrong. Please try again.")
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <section id="enquire" className="bg-[#f4edde] py-16 px-4">
       <div
         className="relative max-w-lg mx-auto rounded-[28px] overflow-hidden px-8 pt-10 pb-10"
         style={{
-  backgroundImage: `url(${enquireBg})`,
-  backgroundSize: "100% 100%",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-}}
+          backgroundImage: `url(${enquireBg})`,
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        {/* Content */}
         <div className="relative z-10">
           <h2
             style={{ fontFamily: '"Rozha One:Regular", serif' }}
@@ -54,13 +112,7 @@ export default function EnquireForm({
               </p>
             </div>
           ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault()
-                setSubmitted(true)
-              }}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
               {/* Selected jewellery */}
               <p
                 style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
@@ -86,6 +138,9 @@ export default function EnquireForm({
 
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
                   className="bg-white rounded-lg px-4 py-2.5 text-[#2b1212] text-base focus:outline-none focus:ring-2 focus:ring-[#c9922a]"
@@ -103,6 +158,9 @@ export default function EnquireForm({
 
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
                   className="bg-white rounded-lg px-4 py-2.5 text-[#2b1212] text-base focus:outline-none focus:ring-2 focus:ring-[#c9922a]"
@@ -120,6 +178,9 @@ export default function EnquireForm({
 
                 <input
                   type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   required
                   style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
                   className="bg-white rounded-lg px-4 py-2.5 text-[#2b1212] text-base focus:outline-none focus:ring-2 focus:ring-[#c9922a]"
@@ -137,6 +198,9 @@ export default function EnquireForm({
 
                 <div className="relative">
                   <select
+                    name="occasion"
+                    value={formData.occasion}
+                    onChange={handleChange}
                     style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
                     className="appearance-none w-full bg-white rounded-lg px-4 py-2.5 text-[#2b1212] text-base focus:outline-none focus:ring-2 focus:ring-[#c9922a] pr-10"
                   >
@@ -175,22 +239,36 @@ export default function EnquireForm({
                 </label>
 
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows={4}
                   style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
                   className="bg-white rounded-lg px-4 py-2.5 text-[#2b1212] text-base focus:outline-none focus:ring-2 focus:ring-[#c9922a] resize-none"
                 />
               </div>
 
+              {/* Error */}
+              {error && (
+                <p
+                  style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
+                  className="text-red-200 text-sm text-center"
+                >
+                  {error}
+                </p>
+              )}
+
               {/* Submit */}
               <div className="flex justify-end pt-1">
                 <button
                   type="submit"
+                  disabled={loading}
                   style={{
                     fontFamily: '"Mukta:Regular", sans-serif',
                   }}
-                  className="bg-[#a87627] text-white text-base px-7 py-2.5 rounded-full hover:bg-[#8a6020] transition-colors"
+                  className="bg-[#a87627] text-white text-base px-7 py-2.5 rounded-full hover:bg-[#8a6020] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send enquiry
+                  {loading ? "Sending..." : "Send enquiry"}
                 </button>
               </div>
             </form>
