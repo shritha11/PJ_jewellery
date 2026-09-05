@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
+import SplashScreen from "./components/SplashScreen"
 
 import Home from "./pages/Home"
 import Jewellery from "./pages/Jewellery"
@@ -15,6 +17,20 @@ import Enquire from "./pages/Enquire"
 import FestiveJewellery from "./pages/FestiveJewellery"
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false)
+    }, 1800)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (showSplash) {
+    return <SplashScreen />
+  }
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-[#faf6ee]">
@@ -59,17 +75,14 @@ export default function App() {
           />
 
           <Route
-  path="/jewellery/festive"
-  element={<FestiveJewellery />}
-/>
+            path="/jewellery/festive"
+            element={<FestiveJewellery />}
+          />
 
           <Route
             path="/enquire"
             element={<Enquire />}
           />
-
-          
-
         </Routes>
 
         <Footer />
