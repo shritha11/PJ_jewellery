@@ -5,11 +5,13 @@ import heroImg from "@/imports/hero.jpg"
 import faqBg from "./imports/faq-bg.png"
 import redBg from "./imports/red-brand-bg.png"
 import familyImg from "./imports/family.png"
+import enquireBg from "./imports/enquire-bg.png"
 import STYLIST_BOUTIQUE from "./imports/boutique-bg.png"
 import STYLIST_BRIDAL from "./imports/main-event-bg.png"
 import STYLIST_TEMPLE from "./imports/heritage-bg.png"
 import STYLIST_FESTIVE from "./imports/festive-bg.png"
 import STYLIST_JEWELLERY from "./imports/daily-bg.png"
+
 const NECKLACE1 =
   "https://images.unsplash.com/photo-1722410180687-b05b50922362?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400"
 const NECKLACE2 =
@@ -527,12 +529,11 @@ function EnquireForm() {
       <div
         className="relative max-w-lg mx-auto rounded-[28px] overflow-hidden px-8 pt-10 pb-10"
         style={{
-          backgroundImage:
-            "url('src/imports/Group620/e837b8afcc800573e6fb011356bb46c395ce9611.png')",
-          backgroundSize: "100% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
+  backgroundImage: `url(${enquireBg})`,
+  backgroundSize: "100% 100%",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+}}
       >
         {/* Content */}
         <div className="relative z-10">
