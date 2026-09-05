@@ -28,12 +28,12 @@ export default function Hero() {
               Shop by occasion
             </a>
             <a
-              href="#enquire"
-              style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
-              className="border border-[#2b1212] text-[#2b1212] text-sm px-6 py-2.5 rounded-full hover:bg-[#f0e6d0] transition-colors"
-            >
-              Book a styling session
-            </a>
+  href="/styling"
+  style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
+  className="border border-[#2b1212] text-[#2b1212] text-sm px-6 py-2.5 rounded-full hover:bg-[#f0e6d0] transition-colors"
+>
+  Book a styling session
+</a>
           </div>
         </div>
         <div className="w-full md:w-[420px] lg:w-[480px] shrink-0">

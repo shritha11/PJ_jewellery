@@ -66,18 +66,13 @@ export default function StylistSection() {
               for and we'll help you choose.
             </p>
 
-            <a
-              href="/styling"
-              style={{ fontFamily: '"Mukta:Bold", sans-serif' }}
-              className="inline-flex items-center justify-center
-                         bg-[#7a1c1c] text-white
-                         text-sm sm:text-base
-                         px-7 py-3 rounded-full
-                         hover:bg-[#5e1515]
-                         transition-colors"
-            >
-              Talk to a Stylist
-            </a>
+           <a
+  href="/styling"
+  style={{ fontFamily: '"Mukta:Bold", sans-serif' }}
+  className="inline-flex items-center gap-2 border border-[#2b1212] text-[#2b1212] text-sm px-6 py-2.5 rounded-full hover:bg-[#f0e6d0] transition-colors"
+>
+  Talk to a Stylist
+</a>
           </div>
 
           {/* RIGHT SIDE — CLICKABLE CARDS */}
