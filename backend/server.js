@@ -5,10 +5,13 @@ require("dotenv").config()
 
 const enquiryRoute = require("./routes/enquiryRoutes")
 
+const chatRoutes = require("./routes/chatRoutes")
+
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use("/api/enquiries", enquiryRoute)
+app.use("/api/chat", chatRoutes)
 app.get("/", (req, res) => {
     res.json({
         message: "PJ Jewellery API is running",

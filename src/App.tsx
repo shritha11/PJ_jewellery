@@ -5,6 +5,7 @@ import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import SplashScreen from "./components/SplashScreen"
 import BridalOccasionPage from "./pages/BridalOccasionPage"
+import Chatbot from "./components/Chatbot"
 
 import Home from "./pages/Home"
 import Jewellery from "./pages/Jewellery"
@@ -92,6 +93,7 @@ export default function App() {
         </Routes>
 
         <Footer />
+        <Chatbot />
       </div>
     </BrowserRouter>
   )
