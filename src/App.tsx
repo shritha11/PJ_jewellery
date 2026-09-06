@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import SplashScreen from "./components/SplashScreen"
+import BridalOccasionPage from "./pages/BridalOccasionPage"
 
 import Home from "./pages/Home"
 import Jewellery from "./pages/Jewellery"
@@ -48,6 +49,11 @@ export default function App() {
             path="/bridal-collections"
             element={<BridalCollections />}
           />
+
+          <Route
+  path="/bridal-collections/:occasion"
+  element={<BridalOccasionPage />}
+/>
 
           <Route
             path="/boutique"
