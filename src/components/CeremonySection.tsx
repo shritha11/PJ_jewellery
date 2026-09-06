@@ -43,6 +43,7 @@ type Product = {
   id: string
   img: string
   label: string
+  description: string
   photographer: string
   photographerUrl: string
   pexelsUrl: string
@@ -74,6 +75,33 @@ const categoryQueries: Record<string, string> = {
   Chains: "gold chains jewellery",
 }
 
+const jewelleryInfo: Record<string, { label: string; description: string }> = {
+  Earrings: {
+    label: "Gold Earrings",
+    description: "Traditional gold earrings with an intricate design.",
+  },
+  Bracelets: {
+    label: "Gold Bracelet",
+    description: "Classic gold bracelet for an elegant traditional look.",
+  },
+  Pendants: {
+    label: "Gold Pendant",
+    description: "Elegant gold pendant with a timeless traditional finish.",
+  },
+  Rings: {
+    label: "Gold Ring",
+    description: "Delicate gold ring designed for everyday elegance.",
+  },
+  Chains: {
+    label: "Gold Chain",
+    description: "Classic gold chain that complements traditional looks.",
+  },
+  All: {
+    label: "Gold Jewellery",
+    description: "Timeless gold jewellery for your celebration.",
+  },
+}
+
 useEffect(() => {
   const fetchJewellery = async () => {
     setLoading(true)
@@ -103,16 +131,28 @@ useEffect(() => {
 
       const data = await response.json()
 
-      const formattedProducts: Product[] = data.photos.map(
-        (photo: any) => ({
-          id: String(photo.id),
-          img: photo.src.medium,
-          label: photo.alt || "Gold Jewellery",
-          photographer: photo.photographer,
-          photographerUrl: photo.photographer_url,
-          pexelsUrl: photo.url,
-        })
-      )
+      const info = jewelleryInfo[activeCategory] || jewelleryInfo.All
+
+const formattedProducts: Product[] = data.photos.map(
+  (photo: any, index: number) => ({
+    id: String(photo.id),
+    img: photo.src.medium,
+    label:
+      activeCategory === "All"
+        ? [
+            "Traditional Gold Necklace",
+            "Bridal Gold Earrings",
+            "Classic Gold Bracelet",
+            "Heritage Gold Pendant",
+            "Traditional Gold Ring",
+          ][index] || info.label
+        : info.label,
+    description: info.description,
+    photographer: photo.photographer,
+    photographerUrl: photo.photographer_url,
+    pexelsUrl: photo.url,
+  })
+)
 
       setProducts(formattedProducts)
     } catch (err) {
@@ -290,18 +330,18 @@ useEffect(() => {
         <div className="p-3">
 
           <p
-            style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
-            className="text-[#2b1212] text-base sm:text-lg"
-          >
-            {p.label}
-          </p>
+  style={{ fontFamily: '"Mukta:Bold", sans-serif' }}
+  className="text-[#2b1212] text-base sm:text-lg"
+>
+  {p.label}
+</p>
 
-          <p
-            style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
-            className="text-[#8b6a55] text-xs mt-1"
-          >
-            Photo by {p.photographer}
-          </p>
+<p
+  style={{ fontFamily: '"Mukta:Regular", sans-serif' }}
+  className="text-[#8b6a55] text-md mt-1 leading-relaxed"
+>
+  {p.description}
+</p>
 
         </div>
       </div>
